@@ -29,10 +29,34 @@ private:
         {
             inOrder(localRoot->leftChild);
 
-            cout << localRoot->iData;
+            cout << localRoot->iData << " ";
             inOrder(localRoot->rightChild);
         }
-    }
+    } //симметричный обход
+
+    void preOrder(Node* localRoot)
+    {
+        if(localRoot != nullptr)
+        {
+            cout << localRoot->iData << " ";
+            preOrder(localRoot->leftChild);
+
+            preOrder(localRoot->rightChild);
+
+        }
+    } //прямой обход
+
+    void revOrder(Node* localRoot)
+    {
+        if(localRoot != nullptr)
+        {
+            revOrder(localRoot->leftChild);
+
+            revOrder(localRoot->rightChild);
+
+            cout << localRoot->iData << " ";
+        }
+    } //обратный обход
 
 public:
     Tree()
@@ -94,6 +118,10 @@ public:
             }
         }
     }
+
+
+
+
 
 
 
