@@ -119,6 +119,30 @@ public:
         }
     }
 
+    Node* minimum()
+    {
+        Node* current = root;
+        Node* last;
+        while (current != nullptr)
+        {
+            last = current;
+            current = current->leftChild;
+        }
+        return last;
+    }
+
+    Node* maximum()
+    {
+        Node* current = root;
+        Node* last;
+        while(current != nullptr)
+        {
+            last = current;
+            current = current->rightChild;
+        }
+        return last;
+    }
+
 
 
 
