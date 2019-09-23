@@ -23,6 +23,17 @@ class Tree
 private:
     Node* root;
 
+    void inOrder(Node* localRoot)
+    {
+        if (localRoot != nullptr)
+        {
+            inOrder(localRoot->leftChild);
+
+            cout << localRoot->iData;
+            inOrder(localRoot->rightChild);
+        }
+    }
+
 public:
     Tree()
     {
@@ -84,7 +95,7 @@ public:
         }
     }
 
-    
+
 
 
 
