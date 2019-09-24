@@ -204,10 +204,22 @@ public:
         if((current->leftChild != nullptr && current->rightChild == nullptr) ||
         (current->leftChild == nullptr && current->rightChild != nullptr))
         {
-            //for One node
-
-            
-
+            if (current->rightChild == nullptr)
+            {
+                if (isLeftChild)
+                    parent->leftChild = current->leftChild;
+                else
+                    parent->leftChild = current->rightChild;
+            }
+            else
+            {
+                if (isLeftChild)
+                    parent->rightChild = current->leftChild;
+                else
+                    parent->rightChild = current->rightChild;
+            }
+            deleteNode(current);
+            return true;
         }
 
         if(current->leftChild != nullptr && current->rightChild != nullptr)
@@ -230,6 +242,7 @@ int main() {
     theTree.insert(1, 90.9);
     theTree.insert(10, 18.18);
     theTree.insert(5, 50.5);
+
 
 
     return 0;
