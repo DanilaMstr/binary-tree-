@@ -157,17 +157,21 @@ public:
     {
         Node* current = root;
         Node* parent = root;
-        bool isList;
-        bool isOneParent;
-        bool isTwoParent;
+        bool isLeftChild;
 
         while(current->iData != key)
         {
             parent = current;
             if(key < current->iData)
+            {
+                isLeftChild = true;
                 current = current->leftChild;
+            }
             else
+            {
+                isLeftChild = false;
                 current = current->rightChild;
+            }
             if (current == nullptr)
             {
                 cout << "not find for delete with key " << key << endl;
@@ -177,33 +181,11 @@ public:
 
         if(current == root)
         {
-            root = nullptr;
-            return true;
+            cout << "can't delete node with key " << key << ", it's root " << endl;
+            return false;
         }
 
         if(current->leftChild == nullptr && current->rightChild == nullptr)
-        {
-            isList = true;
-            isOneParent = false;
-            isTwoParent = false;
-        }
-
-        if((current->leftChild != nullptr && current->rightChild == nullptr) ||
-        (current->leftChild == nullptr && current->rightChild != nullptr))
-        {
-            isList = false;
-            isOneParent = true;
-            isTwoParent = false;
-        }
-
-        if(current->leftChild != nullptr && current->rightChild != nullptr)
-        {
-            isList = false;
-            isOneParent = false;
-            isTwoParent = true;
-        }
-
-        if(isList == true)
         {
             if(parent->leftChild == current)
             {
@@ -219,26 +201,21 @@ public:
             }
         }
 
-        if (isOneParent == true)
-        {}
+        if((current->leftChild != nullptr && current->rightChild == nullptr) ||
+        (current->leftChild == nullptr && current->rightChild != nullptr))
+        {
+            //for One node
 
-        if (isTwoParent == true)
-        {}
-        
+            
+
+        }
+
+        if(current->leftChild != nullptr && current->rightChild != nullptr)
+        {
+            //for two node
+        }
+
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 };
 
@@ -253,8 +230,6 @@ int main() {
     theTree.insert(1, 90.9);
     theTree.insert(10, 18.18);
     theTree.insert(5, 50.5);
-
-
 
 
     return 0;
