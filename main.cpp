@@ -58,23 +58,33 @@ private:
         }
     } //обратный обход
 
+    void deleteNode(Node* current)
+    {
+        current->rightChild = nullptr;
+        current->leftChild = nullptr;
+        delete current;
+    }
+
 public:
     Tree()
     {
         root = nullptr;
     }
 
-    Node* finde(int key)
+    Node* find(int key)
     {
         Node* current = root;
         while(current->iData != key)
         {
-            if (current->iData < key)
+            if (current->iData > key)
                 current = current->leftChild;
             else
                 current = current->rightChild;
             if (current == nullptr)
+            {
+                cout << "not find for delete wint key " << key << endl;
                 return nullptr;
+            }
         }
         return current;
     }
@@ -143,6 +153,82 @@ public:
         return last;
     }
 
+    bool Delete(int key)
+    {
+        Node* current = root;
+        Node* parent = root;
+        bool isList;
+        bool isOneParent;
+        bool isTwoParent;
+
+        while(current->iData != key)
+        {
+            parent = current;
+            if(key < current->iData)
+                current = current->leftChild;
+            else
+                current = current->rightChild;
+            if (current == nullptr)
+            {
+                cout << "not find for delete with key " << key << endl;
+                return false;
+            }
+        }
+
+        if(current == root)
+        {
+            root = nullptr;
+            return true;
+        }
+
+        if(current->leftChild == nullptr && current->rightChild == nullptr)
+        {
+            isList = true;
+            isOneParent = false;
+            isTwoParent = false;
+        }
+
+        if((current->leftChild != nullptr && current->rightChild == nullptr) ||
+        (current->leftChild == nullptr && current->rightChild != nullptr))
+        {
+            isList = false;
+            isOneParent = true;
+            isTwoParent = false;
+        }
+
+        if(current->leftChild != nullptr && current->rightChild != nullptr)
+        {
+            isList = false;
+            isOneParent = false;
+            isTwoParent = true;
+        }
+
+        if(isList == true)
+        {
+            if(parent->leftChild == current)
+            {
+                parent->leftChild = nullptr;
+                deleteNode(current);
+                return true;
+            }
+            else
+            {
+                parent->rightChild = nullptr;
+                deleteNode(current);
+                return true;
+            }
+        }
+
+        if (isOneParent == true)
+        {}
+
+        if (isTwoParent == true)
+        {}
+        
+    }
+
+
+
 
 
 
@@ -157,6 +243,18 @@ public:
 };
 
 int main() {
+
+    Tree theTree;
+
+    theTree.insert(0, 12.12);
+    theTree.insert(6, 66.66);
+    theTree.insert(2, 54.54);
+    theTree.insert(3, 27.27);
+    theTree.insert(1, 90.9);
+    theTree.insert(10, 18.18);
+    theTree.insert(5, 50.5);
+
+
 
 
     return 0;
