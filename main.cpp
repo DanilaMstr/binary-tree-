@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stack>
 
 using namespace std;
 
@@ -247,7 +248,51 @@ public:
         }
         return true;
     }
-    
+
+    void displayTree()
+    {
+        stack <Node*> globalStack;
+        globalStack.push(root);
+        int  nBlanks = 32;
+        bool  isRowEmpty = false;
+        cout << "......................................................" << endl;
+        while(!isRowEmpty) {
+            stack<Node *> localStack;
+            isRowEmpty = true;
+            for (int i = 0; i < nBlanks; i++)
+                cout << " ";
+
+            while (!globalStack.empty()) {
+                Node *temp = globalStack.top();
+                globalStack.pop();
+                if (temp != nullptr) {
+                    cout << temp->iData;
+                    localStack.push(temp->leftChild);
+                    localStack.push(temp->rightChild);
+
+                    if (temp->leftChild != nullptr || temp->rightChild != nullptr)
+                        isRowEmpty = false;
+                } else {
+                    cout << "_ _";
+                    localStack.push(nullptr);
+                    localStack.push(nullptr);
+                }
+                for (int i = 0; i < nBlanks * 2 - 2; i++)
+                    cout << " ";
+            }
+            cout << endl;
+            nBlanks /= 2;
+            while (!localStack.empty())
+            {
+                globalStack.push(localStack.top());
+                localStack.pop();
+            }
+
+        }
+        cout << "......................................................" << endl;
+
+    }
+
 };
 
 int main() {
@@ -261,6 +306,8 @@ int main() {
     theTree.insert(1, 90.9);
     theTree.insert(10, 18.18);
     theTree.insert(5, 50.5);
+
+    theTree.displayTree();
 
 
     return 0;
