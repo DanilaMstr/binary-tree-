@@ -299,14 +299,22 @@ int main() {
 
     Tree theTree;
 
-    theTree.insert(0, 12.12);
-    theTree.insert(6, 66.66);
-    theTree.insert(2, 54.54);
-    theTree.insert(3, 27.27);
-    theTree.insert(1, 90.9);
-    theTree.insert(10, 18.18);
-    theTree.insert(5, 50.5);
+    theTree.insert(50, 12.12);
+    theTree.insert(25, 66.66);
+    theTree.insert(75, 54.54);
+    theTree.insert(12, 27.27);
+    theTree.insert(37, 90.9);
+    theTree.insert(43, 18.18);
+    theTree.insert(30, 50.5);
+    theTree.insert(33, 90.9);
+    theTree.insert(87, 18.18);
+    theTree.insert(93, 50.5);
+    theTree.insert(97, 50.5);
 
+
+    theTree.displayTree();
+
+    theTree.Delete(43);
     theTree.displayTree();
 
 
