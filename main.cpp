@@ -18,15 +18,12 @@ public:
 
 };
 
-class Tree
-{
+class Tree {
 private:
-    Node* root;
+    Node *root;
 
-    void inOrder(Node* localRoot)
-    {
-        if (localRoot != nullptr)
-        {
+    void inOrder(Node *localRoot) {
+        if (localRoot != nullptr) {
             inOrder(localRoot->leftChild);
 
             cout << localRoot->iData << " ";
@@ -34,10 +31,8 @@ private:
         }
     } //симметричный обход
 
-    void preOrder(Node* localRoot)
-    {
-        if(localRoot != nullptr)
-        {
+    void preOrder(Node *localRoot) {
+        if (localRoot != nullptr) {
             cout << localRoot->iData << " ";
             preOrder(localRoot->leftChild);
 
@@ -46,10 +41,8 @@ private:
         }
     } //прямой обход
 
-    void revOrder(Node* localRoot)
-    {
-        if(localRoot != nullptr)
-        {
+    void revOrder(Node *localRoot) {
+        if (localRoot != nullptr) {
             revOrder(localRoot->leftChild);
 
             revOrder(localRoot->rightChild);
@@ -58,11 +51,31 @@ private:
         }
     } //обратный обход
 
-    void deleteNode(Node* current)
-    {
+    void deleteNode(Node *current) {
         current->rightChild = nullptr;
         current->leftChild = nullptr;
         delete current;
+    }
+
+    Node *getSuccessor(Node *delNode) {
+
+        Node* successorParent = delNode;
+        Node* successor = delNode;
+        Node* current = delNode->rightChild;
+
+        while (current != nullptr)
+        {
+            successorParent = successor;
+            successor = current;
+            current = current->leftChild;
+        }
+
+        if (successor != delNode->rightChild)
+        {
+            successorParent->leftChild = successor->rightChild;
+            successor->rightChild = delNode->rightChild;
+        }
+        return successor;
     }
 
 public:
@@ -154,6 +167,7 @@ public:
     }
 
     bool Delete(int key)
+
     {
         Node* current = root;
         Node* parent = root;
@@ -191,13 +205,11 @@ public:
             {
                 parent->leftChild = nullptr;
                 deleteNode(current);
-                return true;
             }
             else
             {
                 parent->rightChild = nullptr;
                 deleteNode(current);
-                return true;
             }
         }
 
@@ -219,16 +231,23 @@ public:
                     parent->rightChild = current->rightChild;
             }
             deleteNode(current);
-            return true;
         }
 
         if(current->leftChild != nullptr && current->rightChild != nullptr)
         {
-            //for two node
+            Node* successor = getSuccessor(current);
+            if(current == root)
+                root = successor;
+            else if(isLeftChild)
+                parent->leftChild = successor;
+            else
+                parent->rightChild = successor;
+
+            deleteNode(current);
         }
-
+        return true;
     }
-
+    
 };
 
 int main() {
@@ -242,7 +261,6 @@ int main() {
     theTree.insert(1, 90.9);
     theTree.insert(10, 18.18);
     theTree.insert(5, 50.5);
-
 
 
     return 0;
