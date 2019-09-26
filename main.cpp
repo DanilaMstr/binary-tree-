@@ -314,8 +314,10 @@ int main() {
 
     theTree.displayTree();
 
-    theTree.Delete(43);
+    theTree.Delete(25);
+    Node* the = theTree.find(12);
     theTree.displayTree();
+
 
 
     return 0;
